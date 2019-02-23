@@ -1,0 +1,72 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Geolocation API",
+    "description" : "NovaCode - Geo API",
+    "contact" : {
+      "email" : "aleksandar.stoisavljevic@novacode.rs"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/countries" : {
+      "get" : {
+        "summary" : "Fetch all countries",
+        "operationId" : "fetchAllCountries",
+        "responses" : {
+          "200" : {
+            "description" : "Return all countries",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CountryItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CountryItem" : {
+        "required" : [ "alpha_2", "alpha_3", "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 192
+          },
+          "alpha_2" : {
+            "type" : "string",
+            "example" : "RS"
+          },
+          "alpha_3" : {
+            "type" : "string",
+            "example" : "SRB"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Srbija"
+          },
+          "active" : {
+            "type" : "boolean",
+            "example" : false
+          }
+        }
+      }
+    }
+  }
+}
