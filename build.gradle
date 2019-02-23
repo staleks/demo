@@ -5,6 +5,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply from: "${project.rootDir}/gradle/version.gradle"
 
 group = 'com.example'
 sourceCompatibility = '1.8'
@@ -19,6 +20,3 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-release {
-	versionPropertyFile = 'version.properties'
-}
