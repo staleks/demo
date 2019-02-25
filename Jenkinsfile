@@ -17,9 +17,9 @@ pipeline {
         sh './gradlew uploadArchives --stacktrace'
       }
     }
-    stage('Docker Info') {
+    stage('Build Docker Image') {
       steps {
-        sh './gradlew dockerInfo --stacktrace'
+        sh './gradlew buildImage --stacktrace'
       }
     }
   }
