@@ -1,5 +1,9 @@
 release {
     versionPropertyFile = 'version.properties'
+    git {
+        requireBranch = /master/
+        pushToCurrentBranch=true
+    }
 }
 
 task loadVersionProps() {
