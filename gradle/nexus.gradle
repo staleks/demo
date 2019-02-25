@@ -34,6 +34,6 @@ extraArchive {
 
 nexus {
     sign = false
-    repositoryUrl = 'http://${NEXUS_HOST}:${NEXUS_PORT}/repository/maven-releases/'
-    snapshotRepositoryUrl = 'http://${NEXUS_HOST}:${NEXUS_PORT}/repository/maven-snapshots/'
+    repositoryUrl = 'http://localhost:8081/repository/maven-releases/'
+    snapshotRepositoryUrl = 'http://localhost:8081/repository/maven-snapshots/'
 }
