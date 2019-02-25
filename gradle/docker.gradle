@@ -13,6 +13,7 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 import com.bmuschko.gradle.docker.tasks.DockerInfo
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
 
 docker {
     registryCredentials {
@@ -37,12 +38,18 @@ task buildImage(type: DockerBuildImage) {
             "${buildImageName}:${latestTag}".toString()]
 }
 
+task tagImage(type: DockerTagImage, dependsOn: buildImage) {
+    force = true
+    targetImageId { buildImage.getImageId() }
+    tag = versionTag.toString()
+}
+
 task pushImage(type: DockerPushImage) {
     imageName = buildImageName.toString()
     tag = latestTag.toString()
 }
 
-task pushVersionedImage(type: DockerPushImage) {
+task pushVersionedImage(type: DockerPushImage, dependsOn: tagImage) {
     logger.lifecycle path + " [pushVersioned] "
     logger.lifecycle path + " Loaded project version: " + project.version
     logger.lifecycle path + " Loaded version tag: " + versionTag.toString()
