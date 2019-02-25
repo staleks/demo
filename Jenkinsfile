@@ -17,5 +17,10 @@ pipeline {
         sh './gradlew uploadArchives --stacktrace'
       }
     }
+    stage('Docker Info') {
+      steps {
+        sh './gradlew dockerInfo --stacktrace'
+      }
+    }
   }
 }

@@ -3,12 +3,12 @@ release {
 }
 
 task loadVersionProps() {
-    logger.lifecycle path + "loading project version from version.properties file"
+    logger.lifecycle path + " Loading project version from version.properties file"
     file("${rootProject.projectDir}/version.properties").withInputStream {
         stream ->
             def props = new Properties()
             props.load(stream)
             props.each { key, val -> project.setProperty(key, val) }
     }
-    logger.lifecycle path + " Loaded project Version: " + project.version    
+    logger.lifecycle path + " Loaded project version: " + project.version
 }

@@ -16,6 +16,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply from: "${project.rootDir}/gradle/nexus.gradle"
 apply from: "${project.rootDir}/gradle/version.gradle"
+apply from: "${project.rootDir}/gradle/docker.gradle"
 
 group = 'rs.in.staleksit'
 
