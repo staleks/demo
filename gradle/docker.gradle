@@ -41,3 +41,11 @@ task pushImage(type: DockerPushImage) {
     imageName = buildImageName.toString()
     tag = latestTag.toString()
 }
+
+task pushVersionedImage(type: DockerPushImage) {
+    logger.lifecycle path + " [pushVersioned] "
+    logger.lifecycle path + " Loaded project version: " + project.version
+    logger.lifecycle path + " Loaded version tag: " + versionTag.toString()
+    imageName = buildImageName.toString()
+    tag = versionTag.toString()
+}
