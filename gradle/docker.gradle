@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:4.5.0'
+    }
+}
+
+apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
+
+import com.bmuschko.gradle.docker.tasks.DockerInfo
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+
+docker {
+    registryCredentials {
+        username = 'staleks'
+        password = 'Saschko1012'
+        email = 'staleks@gmail.com'
+    }
+}
+
+ext {
+    latestTag = "latest"
+    versionTag = project.version
+    buildImageName = "staleks/${rootProject.name}"
+}
+
+task dockerInfo(type: DockerInfo) {}
+
+task buildImage(type: DockerBuildImage) {
+    description = "Build docker image"
+    inputDir = project.file(".")
+    tags = ["${buildImageName}:${versionTag}".toString(),
+            "${buildImageName}:${latestTag}".toString()]
+}
+
+task pushImage(type: DockerPushImage) {
+    imageName = buildImageName.toString()
+    tag = latestTag.toString()
+}
