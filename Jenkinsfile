@@ -16,24 +16,30 @@ pipeline {
       }
     }
     stage('Build') {
-      when not {
-        branch 'master'
+      when {
+        not {
+            branch 'master'
+        }
       }
       steps {
         sh './gradlew build --stacktrace'
       }
     }
     stage('Push to Nexus') {
-        when not {
-            branch 'master'
+        when {
+            not {
+                branch 'master'
+            }
         }
         steps {
             sh './gradlew uploadArchives --stacktrace'
         }
     }
     stage('Push Docker Image') {
-        when not {
-            branch 'master'
+        when {
+            not {
+                branch 'master'
+            }
         }
         steps {
             sh './gradlew pushImage --stacktrace'
