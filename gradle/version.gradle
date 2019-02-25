@@ -1,5 +1,6 @@
 release {
     versionPropertyFile = 'version.properties'
+    buildTasks = []
     git {
         requireBranch = /master/
         pushToCurrentBranch=true
