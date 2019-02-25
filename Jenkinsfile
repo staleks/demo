@@ -12,5 +12,10 @@ pipeline {
         sh './gradlew build --stacktrace'
       }
     }
+    stage('Upload Archives') {
+      steps {
+        sh './gradlew uploadArchives --stacktrace'
+      }
+    }
   }
 }
