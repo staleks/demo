@@ -20,13 +20,20 @@ pipeline {
     stage('Upload Archives') {
       steps {
         sh './gradlew uploadArchives --stacktrace'
-        script {
-            if (env.BRANCH_NAME == 'master') {
-                sh './gradlew pushVersionedImage --stacktrace'
-            } else {
-                sh './gradlew pushImage --stacktrace'
-            }
-        }
+        sh './gradlew pushImage --stacktrace'
+      }
+    }
+    stage('Release') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh './gradlew release -Prelease.useAutomaticVersion=true --stacktrace'
+      }
+    }
+    stage('Workspace delete') {
+      steps {
+        deleteDir()
       }
     }
   }

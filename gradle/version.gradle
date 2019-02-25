@@ -12,3 +12,4 @@ task loadVersionProps() {
     }
     logger.lifecycle path + " Loaded project version: " + project.version
 }
+
