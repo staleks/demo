@@ -1,0 +1,39 @@
+ext {
+    nexusUsername = 'admin'
+    nexusPassword = 'admin123'
+}
+
+apply plugin: 'com.bmuschko.nexus'
+
+modifyPom {
+    project {
+        url 'https://github.com/staleks/demo'
+        inceptionYear '2018'
+
+        scm {
+            url 'https://github.com/staleks/demo'
+            connection 'scm:https://github.com/staleks/demo.git'
+            developerConnection 'scm:git://github.com/staleks/demo.git'
+        }
+
+        developers {
+            developer {
+                id 'staleks'
+                name 'Aleksandar Stoisavljevic'
+                email 'staleks@gmail.com'
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = true
+}
+
+nexus {
+    sign = false
+    repositoryUrl = 'http://localhost:8081/repository/maven-releases/'
+    snapshotRepositoryUrl = 'http://localhost:8081/repository/maven-snapshots/'
+}
