@@ -12,14 +12,21 @@ pipeline {
         sh './gradlew build --stacktrace'
       }
     }
-    stage('Upload Archives') {
-      steps {
-        sh './gradlew uploadArchives --stacktrace'
-      }
-    }
     stage('Build Docker Image') {
       steps {
         sh './gradlew buildImage --stacktrace'
+      }
+    }
+    stage('Upload Archives') {
+      steps {
+        sh './gradlew uploadArchives --stacktrace'
+        script {
+            if (env.BRANCH_NAME == 'master') {
+                sh './gradlew pushVersionedImage --stacktrace'
+            } else {
+                sh './gradlew pushImage --stacktrace'
+            }
+        }
       }
     }
   }

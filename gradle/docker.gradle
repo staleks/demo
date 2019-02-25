@@ -13,6 +13,14 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 import com.bmuschko.gradle.docker.tasks.DockerInfo
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
+docker {
+    registryCredentials {
+        username = 'staleks'
+        password = 'Saschko1012'
+        email = 'staleks@gmail.com'
+    }
+}
+
 ext {
     latestTag = "latest"
     versionTag = project.version
@@ -26,4 +34,9 @@ task buildImage(type: DockerBuildImage) {
     inputDir = project.file(".")
     tags = ["${buildImageName}:${versionTag}".toString(),
             "${buildImageName}:${latestTag}".toString()]
+}
+
+task pushImage(type: DockerPushImage) {
+    imageName = buildImageName
+    tag = latestTag
 }
