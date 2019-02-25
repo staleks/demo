@@ -7,25 +7,42 @@ pipeline {
         sh './gradlew clean --stacktrace'
       }
     }
-    if (env.BRANCH_NAME == 'master') {
-        stage('Release') {
-          steps {
-            sh './gradlew release -Prelease.useAutomaticVersion=true --stacktrace'
-          }
+    stage('Release') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh './gradlew release -Prelease.useAutomaticVersion=true --stacktrace'
+      }
+    }
+    stage('Build') {
+      when {
+        not {
+            branch 'master'
         }
-    } else {
-        stage('Build') {
-          steps {
-            sh './gradlew build --stacktrace'
-          }
+      }
+      steps {
+        sh './gradlew build --stacktrace'
+      }
+    }
+    stage('Push to Nexus') {
+        when {
+            not {
+                branch 'master'
+            }
         }
-        stage('Push to Nexus') {
+        steps {
             sh './gradlew uploadArchives --stacktrace'
         }
-        stage('Push Docker Image') {
-          steps {
+    }
+    stage('Push Docker Image') {
+        when {
+            not {
+                branch 'master'
+            }
+        }
+        steps {
             sh './gradlew pushImage --stacktrace'
-          }
         }
     }
     stage('Workspace delete') {
