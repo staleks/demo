@@ -45,7 +45,7 @@ task tagImage(type: DockerTagImage, dependsOn: buildImage) {
     tag = versionTag.toString()
 }
 
-task pushImage(type: DockerPushImage) {
+task pushImage(type: DockerPushImage, dependsOn: buildImage) {
     imageName = buildImageName.toString()
     tag = latestTag.toString()
 }
