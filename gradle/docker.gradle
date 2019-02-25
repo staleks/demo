@@ -38,6 +38,6 @@ task buildImage(type: DockerBuildImage) {
 }
 
 task pushImage(type: DockerPushImage) {
-    imageName = buildImageName
-    tag = latestTag
+    imageName = buildImageName.toString()
+    tag = latestTag.toString()
 }
