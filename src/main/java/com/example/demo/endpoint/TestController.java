@@ -12,7 +12,7 @@ public class TestController {
 
     @GetMapping("/")
     public ResponseEntity<String> handle() {
-        LOG.info("test");
+        LOG.info("test #2");
         return ResponseEntity.ok("Ok");
     }
 
