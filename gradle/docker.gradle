@@ -40,7 +40,6 @@ task buildImage(type: DockerBuildImage) {
 
 task tagImage(type: DockerTagImage, dependsOn: buildImage) {
     force = true
-    targetImageId { buildImage.getImageId() }
     tag = versionTag.toString()
 }
 
